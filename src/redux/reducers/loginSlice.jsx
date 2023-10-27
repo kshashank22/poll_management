@@ -1,8 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { details } from "../actions/constants";
+
+
+const initialState={
+    user:null,
+    isVerified:false,
+}
+
 const userSlice=createSlice({
     name:"Api",
-    details,
+    initialState,
     reducers:{
         verifiedUser:(state,action)=>{
             state.user=action.payload;

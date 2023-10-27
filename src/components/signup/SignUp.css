@@ -1,4 +1,4 @@
-.signupContainer {
+.formContainer {
   font-family: "Arial";
   background-color: antiquewhite;
   background-size: cover;
@@ -19,6 +19,8 @@ h1{
 }
 .label {
   margin: 10px 0px;
+  display: flex;
+  flex-direction: column;
 }
 .error{
     color: red;

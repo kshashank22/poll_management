@@ -2,30 +2,29 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import "./SignUp.css";
 import { useFormik } from "formik";
-import { initialValues, basicSchema } from "../../utilities";
+import { basicSchema } from "../../utilities";
 import { sigup } from "../../apis/apiSevices";
+import { v4 as uuidv4 } from "uuid";
 
 function SignUp() {
   const formikData = useFormik({
-    initialValues,
+    initialValues: { id: uuidv4(), username: "", password: "", role: "" },
     onSubmit: async (values, actions) => {
       await new Promise((data) => setTimeout(data, 500));
-      try{
-        await sigup(username,password);
-      }catch(error){
-      }
+      try {
+        await sigup(username, password);
+      } catch (error) {}
       actions.resetForm();
     },
     validationSchema: basicSchema,
   });
 
   return (
-    <div className="signupContainer">
+    <div className="formContainer">
       <h1>Sign Up</h1>
       <form autoComplete="off" onSubmit={formikData.handleSubmit}>
         <div className="label">
           <label>UserName</label>
-          <br />
           <TextField
             type="text"
             className="text"
@@ -43,7 +42,6 @@ function SignUp() {
         )}
         <div className="label">
           <label>Password</label>
-          <br />
           <TextField
             type="password"
             className="text"
@@ -62,15 +60,18 @@ function SignUp() {
 
         <div className="label">
           <label>Role</label>
-          <br />
           <select
             className="role"
             value={formikData.values.role}
             onChange={formikData.handleChange}
             onBlur={formikData.handleBlur}
           >
-            <option id="1" onChange={formikData.handleChange}>Guest</option>
-            <option id="2" onChange={formikData.handleChange}>Admin</option>
+            <option id="1" onChange={formikData.handleChange}>
+              Guest
+            </option>
+            <option id="2" onChange={formikData.handleChange}>
+              Admin
+            </option>
           </select>
         </div>
         <div className="button">

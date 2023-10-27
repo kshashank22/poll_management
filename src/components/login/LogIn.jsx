@@ -1,36 +1,34 @@
-import React from 'react'
-import { login } from '../../apis/apiSevices';
-import { TextField } from '@material-ui/core';
+import React from "react";
+import { login } from "../../apis/apiSevices";
+import { TextField } from "@material-ui/core";
 import { useFormik } from "formik";
-import { initialValues, basicSchema } from "../../utilities";
-import { verifiedUser } from '../../redux/reducers/loginSlice';
-import { useDispatch } from 'react-redux';
-import './LogIn.css'
+import { basicSchema } from "../../utilities";
+import { verifiedUser } from "../../redux/reducers/loginSlice";
+import { dispatch } from "../../redux/store/store";
+import "./LogIn.css";
 
 function LogIn() {
-
-    const dispatch=useDispatch();
-
-    const formikData = useFormik({
-        initialValues,
-        onSubmit: async (values, actions) => {
-          await new Promise((data) => setTimeout(data, 500));
-          try{
-           const user= await login(username,password);
-           dispatch(verifiedUser(user))
-          }catch(error){
-          }
-          actions.resetForm();
-        },
-        validationSchema: basicSchema,
-      });
+  const formikData = useFormik({
+    initialValues: {
+      username: "",
+      password: "",
+    },
+    onSubmit: async (values, actions) => {
+      await new Promise((data) => setTimeout(data, 500));
+      try {
+        const user = await login(username, password);
+        dispatch(verifiedUser(user));
+      } catch (error) {}
+      actions.resetForm();
+    },
+    validationSchema: basicSchema,
+  });
   return (
-    <div className="signupContainer">
+    <div className="formContainer">
       <h1>Log In</h1>
       <form autoComplete="off" onSubmit={formikData.handleSubmit}>
         <div className="label">
           <label>UserName</label>
-          <br />
           <TextField
             type="text"
             className="text"
@@ -48,7 +46,6 @@ function LogIn() {
         )}
         <div className="label">
           <label>Password</label>
-          <br />
           <TextField
             type="password"
             className="text"
@@ -71,7 +68,7 @@ function LogIn() {
         </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default LogIn
+export default LogIn;

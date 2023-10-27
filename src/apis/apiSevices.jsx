@@ -2,9 +2,6 @@ import axios from "axios";
 
 const instance = axios.create({
   baseUrl: "https://etechpolltesting.onrender.com/",
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
 
 export const sigup = async (username, password) => {
