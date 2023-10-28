@@ -9,8 +9,8 @@ function PollPage() {
     <BrowserRouter>
       <div className="pollPageContainer">
         <Routes>
-          <Route path="/" element={<SignUp />}></Route>
-          <Route exact path="/login" element={<LogIn />}></Route>
+          <Route path="/" element={<LogIn />}></Route>
+          <Route exact path="/signup" element={<SignUp />}></Route>
         </Routes>
       </div>
     </BrowserRouter>

@@ -6,6 +6,8 @@ import { basicSchema } from "../../utilities";
 import { verifiedUser } from "../../redux/reducers/loginSlice";
 import { dispatch } from "../../redux/store/store";
 import "./LogIn.css";
+import { NavLink } from "react-router-dom";
+import Button from "../button/Button";
 
 function LogIn() {
   const formikData = useFormik({
@@ -62,9 +64,14 @@ function LogIn() {
           )}
         </div>
         <div className="button">
-          <button className="buttonStyle" type="submit">
-            Log In
-          </button>
+          <Button value={"Log In"} classname={"buttonStyle"} type={"submit"} />
+          <NavLink to="/signup">
+            <Button
+              value={"Sign Up"}
+              classname={"buttonStyle"}
+              type={"submit"}
+            />
+          </NavLink>
         </div>
       </form>
     </div>

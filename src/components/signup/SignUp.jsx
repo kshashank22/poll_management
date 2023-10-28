@@ -7,6 +7,7 @@ import { signup } from "../../redux/reducers/loginSlice";
 import { v4 as uuidv4 } from "uuid";
 import { dispatch } from "../../redux/store/store";
 import { NavLink } from "react-router-dom";
+import Button from "../button/Button";
 
 function SignUp() {
   const formikData = useFormik({
@@ -73,13 +74,13 @@ function SignUp() {
           </select>
         </div>
         <div className="button">
-          <button className="buttonStyle" type="submit">
-            Sign Up
-          </button>
-          <NavLink to="/login">
-            <button className="buttonStyle" type="submit">
-              Sign In
-            </button>
+          <Button value={"Sign Up"} classname={"buttonStyle"} type={"submit"} />
+          <NavLink to="/">
+            <Button
+              value={"Sign In"}
+              classname={"buttonStyle"}
+              type={"submit"}
+            />
           </NavLink>
         </div>
       </form>
