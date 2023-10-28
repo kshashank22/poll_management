@@ -3,17 +3,19 @@ import { TextField } from "@material-ui/core";
 import "./SignUp.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities";
-import { sigup } from "../../apis/apiSevices";
+import { signup } from "../../redux/reducers/loginSlice";
 import { v4 as uuidv4 } from "uuid";
+import { dispatch } from "../../redux/store/store";
+import { NavLink } from "react-router-dom";
 
 function SignUp() {
   const formikData = useFormik({
-    initialValues: { id: uuidv4(), username: "", password: "", role: "" },
+    initialValues: { id: uuidv4(), username: "", password: "", role: "Guest" },
     onSubmit: async (values, actions) => {
-      await new Promise((data) => setTimeout(data, 500));
       try {
-        await sigup(username, password);
+        await dispatch(signup(username, password));
       } catch (error) {}
+      await new Promise((data) => setTimeout(data, 500));
       actions.resetForm();
     },
     validationSchema: basicSchema,
@@ -61,23 +63,24 @@ function SignUp() {
         <div className="label">
           <label>Role</label>
           <select
+            name="role"
             className="role"
-            value={formikData.values.role}
             onChange={formikData.handleChange}
             onBlur={formikData.handleBlur}
           >
-            <option id="1" onChange={formikData.handleChange}>
-              Guest
-            </option>
-            <option id="2" onChange={formikData.handleChange}>
-              Admin
-            </option>
+            <option value="Guest">Guest</option>
+            <option value="Admin">Admin</option>
           </select>
         </div>
         <div className="button">
           <button className="buttonStyle" type="submit">
             Sign Up
           </button>
+          <NavLink to="/login">
+            <button className="buttonStyle" type="submit">
+              Sign In
+            </button>
+          </NavLink>
         </div>
       </form>
     </div>

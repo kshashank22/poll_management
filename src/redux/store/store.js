@@ -3,7 +3,7 @@ import loginSlice from "../reducers/loginSlice";
 
 const store = configureStore({
   reducer: loginSlice,
-  middleware: (applyMiddleware) => applyMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 export const {dispatch}=store

@@ -1,35 +1,5 @@
 import axios from "axios";
 
-const instance = axios.create({
+export const instance = axios.create({
   baseUrl: "https://etechpolltesting.onrender.com/",
 });
-
-export const sigup = async (username, password) => {
-  try {
-    const response = await instance.post(
-      `add_user?username=admin&password=admin&role=admin`,
-      {
-        username,
-        password,
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const login = async (username, password) => {
-  try {
-    const response = await instance.post(
-      `login?username=admin&password=admin`,
-      {
-        username,
-        password,
-      }
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};

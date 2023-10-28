@@ -1,5 +1,5 @@
 import React from "react";
-import { login } from "../../apis/apiSevices";
+import { login } from "../../redux/reducers/loginSlice";
 import { TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities";
