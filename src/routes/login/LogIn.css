@@ -1,3 +1,12 @@
+.pollPageContainer {
+  background-color: beige;
+  background-size: cover;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .formContainer {
   font-family: "Arial";
   background-color: antiquewhite;
@@ -29,7 +38,7 @@ h1 {
   background-color: transparent;
   padding: 6px 15px;
   border: 1px solid black;
-  margin-right:20px;
+  margin-right: 20px;
 }
 .button {
   margin-top: 20px;
