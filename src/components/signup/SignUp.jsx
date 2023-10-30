@@ -1,6 +1,6 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import "./SignUp.css";
+import "../login/LogIn.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities";
 import { signup } from "../../redux/reducers/loginSlice";
