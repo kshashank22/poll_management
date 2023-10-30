@@ -14,6 +14,6 @@ export const basicSchema = yup.object().shape({
     .required("*Password is Required"),
 });
 
-export const instance = axios.create({
+export const axiosInstance = axios.create({
   baseUrl: "https://etechpolltesting.onrender.com/",
 });

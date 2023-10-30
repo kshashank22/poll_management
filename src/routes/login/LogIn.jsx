@@ -15,10 +15,9 @@ function LogIn() {
       username: "",
       password: "",
     },
-    onSubmit: async (values, actions) => {
-      await new Promise((data) => setTimeout(data, 500));
+    onSubmit: (values, actions) => {
       try {
-        const user = await login(username, password);
+        const user = login(values.username, values.password);
         dispatch(verifiedUser(user));
       } catch (error) {}
       actions.resetForm();

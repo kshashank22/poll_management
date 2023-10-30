@@ -12,11 +12,10 @@ import Button from "../../components/button/Button";
 function SignUp() {
   const formikData = useFormik({
     initialValues: { id: uuidv4(), username: "", password: "", role: "Guest" },
-    onSubmit: async (values, actions) => {
+    onSubmit: (values, actions) => {
       try {
-        await dispatch(signup(username, password));
+        dispatch(signup(values.username, values.password, values.role));
       } catch (error) {}
-      await new Promise((data) => setTimeout(data, 500));
       actions.resetForm();
     },
     validationSchema: basicSchema,

@@ -1,19 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { instance } from "../../utilities";
+import { axiosInstance } from "../../utilities";
 
 const initialState = {
   user: null,
   isVerified: false,
 };
 
-export const signup = async (username, password) => {
+export const signup = async (username, password, admin) => {
   try {
-    const response = await instance.post(
-      `add_user?username=admin&password=admin&role=admin`,
-      {
-        username,
-        password,
-      }
+    const response = await axiosInstance.post(
+      `https://etechpolltesting.onrender.com/add_user?username=${username}&password=${password}&role=${admin}`
     );
     return response.data;
   } catch (error) {
@@ -23,12 +19,8 @@ export const signup = async (username, password) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await instance.post(
-      `login?username=admin&password=admin`,
-      {
-        username,
-        password,
-      }
+    const response = await axiosInstance.post(
+      `https://etechpolltesting.onrender.com/login?username=${username}&password=${password}`
     );
     return response.data;
   } catch (error) {
