@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../utilities/axios";
 
-
 const initialState = {
   user: null,
   isVerified: false,
@@ -28,6 +27,8 @@ export const login = async (username, password) => {
     throw error;
   }
 };
+
+
 
 const userSlice = createSlice({
   name: "Api",
