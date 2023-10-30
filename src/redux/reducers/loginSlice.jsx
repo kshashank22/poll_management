@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { axiosInstance } from "../../utilities";
+import axiosInstance from "../../utilities/axios";
+
 
 const initialState = {
   user: null,
@@ -9,7 +10,7 @@ const initialState = {
 export const signup = async (username, password, admin) => {
   try {
     const response = await axiosInstance.post(
-      `https://etechpolltesting.onrender.com/add_user?username=${username}&password=${password}&role=${admin}`
+      `add_user?username=${username}&password=${password}&role=${admin}`
     );
     return response.data;
   } catch (error) {
@@ -20,7 +21,7 @@ export const signup = async (username, password, admin) => {
 export const login = async (username, password) => {
   try {
     const response = await axiosInstance.post(
-      `https://etechpolltesting.onrender.com/login?username=${username}&password=${password}`
+      `login?username=${username}&password=${password}`
     );
     return response.data;
   } catch (error) {
@@ -43,5 +44,5 @@ const userSlice = createSlice({
   },
 });
 
-export const { verifiedUser, nonVerifiedUser } = userSlice.actions;
+export const { verifiedUser, nonVerifiedUse } = userSlice.actions;
 export default userSlice.reducer;

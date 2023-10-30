@@ -1,5 +1,4 @@
 import * as yup from "yup";
-import axios from "axios";
 
 const passwordregex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{6,}$/;
 
@@ -12,8 +11,4 @@ export const basicSchema = yup.object().shape({
       message: "Atleast 1 Caps and small letter,1 num value",
     })
     .required("*Password is Required"),
-});
-
-export const axiosInstance = axios.create({
-  baseUrl: "https://etechpolltesting.onrender.com/",
 });

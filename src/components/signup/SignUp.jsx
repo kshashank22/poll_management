@@ -1,13 +1,13 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
-import "../login/LogIn.css";
+import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
-import { basicSchema } from "../../utilities";
+import { basicSchema } from "../../utilities/utilities";
 import { signup } from "../../redux/reducers/loginSlice";
 import { v4 as uuidv4 } from "uuid";
 import { dispatch } from "../../redux/store/store";
 import { NavLink } from "react-router-dom";
-import Button from "../../components/button/Button";
+import Button from "../button/Button";
 
 function SignUp() {
   const formikData = useFormik({

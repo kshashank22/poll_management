@@ -2,12 +2,12 @@ import React from "react";
 import { login } from "../../redux/reducers/loginSlice";
 import { TextField } from "@material-ui/core";
 import { useFormik } from "formik";
-import { basicSchema } from "../../utilities";
+import { basicSchema } from "../../utilities/utilities";
 import { verifiedUser } from "../../redux/reducers/loginSlice";
 import { dispatch } from "../../redux/store/store";
 import "./LogIn.css";
 import { NavLink } from "react-router-dom";
-import Button from "../../components/button/Button";
+import Button from "../button/Button";
 
 function LogIn() {
   const formikData = useFormik({
