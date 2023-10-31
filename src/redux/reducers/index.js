@@ -3,8 +3,8 @@ import loginSlice from "./loginSlice";
 import signupSlice from "./signupSlice";
 
 const rootReducer = combineReducers({
-  loginSlice:loginSlice,
-  signupSlice:signupSlice,
+  loginSlice: loginSlice,
+  signupSlice: signupSlice,
 });
 
 export default rootReducer;
