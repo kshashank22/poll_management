@@ -9,9 +9,9 @@ const initialState = {
   data: {},
 };
 
-const loginSlice = createSlice({
-  name: "login",
-  initialState: initialState,
+const signupSlice = createSlice({
+  name: "signup",
+  initialState,
   reducers: {
     startLoading(state) {
       state.isLoading = true;
@@ -32,20 +32,20 @@ const loginSlice = createSlice({
   },
 });
 
-export function login(payload) {
+export function signup(payload) {
   return async () => {
-    dispatch(loginSlice.actions.startLoading());
+    dispatch(signupSlice.actions.startLoading());
     try {
       const response = await axiosInstance.post(
-        `login?username=${payload.username}&password=${payload.password}`,
+        `add_user?username=${payload.username}&password=${payload.password}&role=${payload.role}`,
         { payload }
       );
-      dispatch(loginSlice.actions.loginSuccess(response.data));
+      dispatch(signupSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(loginSlice.actions.hasError(e));
+      dispatch(signupSlice.actions.hasError(e));
     }
   };
 }
 
-export const { startLoading, hasError, loginSuccess } = loginSlice.actions;
-export default loginSlice.reducer;
+export const { startLoading, hasError, loginSuccess } = signupSlice.actions;
+export default signupSlice.reducer;

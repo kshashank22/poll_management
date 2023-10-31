@@ -3,7 +3,7 @@ import { TextField } from "@material-ui/core";
 import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
-import { signup } from "../../redux/reducers/loginSlice";
+import { signup } from "../../redux/reducers/signupSlice";
 import { v4 as uuidv4 } from "uuid";
 import { dispatch } from "../../redux/store/store";
 import { NavLink } from "react-router-dom";

@@ -1,9 +1,8 @@
 import React from "react";
-import { login } from "../../redux/reducers/loginSetup";
+import { login } from "../../redux/reducers/loginSlice";
 import { TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
-import { verifiedUser } from "../../redux/reducers/loginSlice";
 import { dispatch } from "../../redux/store/store";
 import "./LogIn.css";
 import { NavLink } from "react-router-dom";
@@ -17,8 +16,7 @@ function LogIn() {
     },
     onSubmit: (values, actions) => {
       try {
-        const user = login(values);
-        dispatch(user);
+        dispatch(login(values));
       } catch (error) {}
       actions.resetForm();
     },

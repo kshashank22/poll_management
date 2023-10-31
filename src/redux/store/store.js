@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import loginSlice from "../reducers/loginSlice";
+import rootReducer from "../reducers";
 
 const store = configureStore({
-  reducer: loginSlice,
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
-export const {dispatch}=store
+export const { dispatch } = store;
 
 export default store;
