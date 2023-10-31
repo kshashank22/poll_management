@@ -2,38 +2,34 @@ import { createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../../utilities/axios";
 
 const initialState = {
+  isLoading: false,
+  isSuccess: false,
+  isError: false,
+  data: {},
   user: null,
   isVerified: false,
 };
 
-export const signup = async (username, password, admin) => {
-  try {
-    const response = await axiosInstance.post(
-      `add_user?username=${username}&password=${password}&role=${admin}`
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const login = async (username, password) => {
-  try {
-    const response = await axiosInstance.post(
-      `login?username=${username}&password=${password}`
-    );
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};
-
-
-
 const userSlice = createSlice({
-  name: "Api",
-  initialState,
+  name: "login",
+  initialState: initialState,
   reducers: {
+    startLoading(state) {
+      state.isLoading = true;
+      state.isError = false;
+    },
+    loginSuccess(state, action) {
+      state.isLoading = false;
+      state.isError = false;
+      state.isSuccess = true;
+      state.data = { ...action.payload };
+    },
+    hasError(state, action) {
+      state.isError = true;
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.data = { ...action.payload };
+    },
     verifiedUser: (state, action) => {
       state.user = action.payload;
       state.isVerified = true;
@@ -45,5 +41,22 @@ const userSlice = createSlice({
   },
 });
 
-export const { verifiedUser, nonVerifiedUse } = userSlice.actions;
+export const signup = async (payload) => {
+  try {
+    const response = await axiosInstance.post(
+      `add_user?username=${payload.username}&password=${payload.password}&role=${payload.role}`
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const {
+  verifiedUser,
+  nonVerifiedUse,
+  startLoading,
+  hasError,
+  loginSuccess,
+} = userSlice.actions;
 export default userSlice.reducer;

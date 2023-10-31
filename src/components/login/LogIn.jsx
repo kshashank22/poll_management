@@ -1,5 +1,5 @@
 import React from "react";
-import { login } from "../../redux/reducers/loginSlice";
+import { login } from "../../redux/reducers/loginSetup";
 import { TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
@@ -17,8 +17,8 @@ function LogIn() {
     },
     onSubmit: (values, actions) => {
       try {
-        const user = login(values.username, values.password);
-        dispatch(verifiedUser(user));
+        const user = login(values);
+        dispatch(user);
       } catch (error) {}
       actions.resetForm();
     },

@@ -14,7 +14,7 @@ function SignUp() {
     initialValues: { id: uuidv4(), username: "", password: "", role: "Guest" },
     onSubmit: (values, actions) => {
       try {
-        dispatch(signup(values.username, values.password, values.role));
+        dispatch(signup(values));
       } catch (error) {}
       actions.resetForm();
     },
