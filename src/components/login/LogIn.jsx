@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { dispatch } from "../../redux/store/store";
-import { login } from "../../redux/reducers/loginSlice";
+import { login, resetReducer } from "../../redux/reducers/loginSlice";
 import { TextField } from "@material-ui/core";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
 import "./LogIn.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
+import { jwtDecode } from "jwt-decode";
 
 function LogIn() {
+  const loginSlice = useSelector((state) => state.loginSlice);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (loginSlice.isSuccess && loginSlice.data.token) {
+      const decoded = jwtDecode(loginSlice.data.token);
+      if (decoded.role === "Admin") {
+        localStorage.setItem("key", loginSlice.data.token);
+        dispatch(resetReducer());
+        navigate("/adminpoll");
+      }
+    }
+  }, [loginSlice.isSuccess]);
+
   const formikData = useFormik({
     initialValues: {
       username: "",

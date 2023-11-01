@@ -11,7 +11,7 @@ const initialState = {
 
 const loginSlice = createSlice({
   name: "login",
-  initialState: initialState,
+  initialState,
   reducers: {
     startLoading(state) {
       state.isLoading = true;
@@ -28,6 +28,12 @@ const loginSlice = createSlice({
       state.isLoading = false;
       state.isSuccess = false;
       state.data = { ...action.payload };
+    },
+    resetReducer(state) {
+      state.isError = false;
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.data = {};
     },
   },
 });
@@ -47,5 +53,6 @@ export function login(payload) {
   };
 }
 
-export const { startLoading, hasError, loginSuccess } = loginSlice.actions;
+export const { startLoading, hasError, loginSuccess, resetReducer } =
+  loginSlice.actions;
 export default loginSlice.reducer;
