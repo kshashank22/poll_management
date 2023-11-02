@@ -9,16 +9,20 @@ import "./LogIn.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { jwtDecode } from "jwt-decode";
+import { CircularProgress, Snackbar } from "@material-ui/core";
 
 function LogIn() {
   const loginSlice = useSelector((state) => state.loginSlice);
+  const status = useSelector((state) => state.loginSlice.isLoading);
+  const error = useSelector((state) => state.loginSlice.isError);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
       const decoded = jwtDecode(loginSlice.data.token);
       if (decoded.role === "Admin") {
-        localStorage.setItem("key", loginSlice.data.token);
+        const items = [decoded.role, loginSlice.data.token];
+        localStorage.setItem("key", items);
         dispatch(resetReducer());
         navigate("/adminpoll");
       }
@@ -30,14 +34,18 @@ function LogIn() {
       username: "",
       password: "",
     },
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
       try {
         dispatch(login(values));
       } catch (error) {}
-      actions.resetForm();
     },
     validationSchema: basicSchema,
   });
+
+  if (error) {
+    return <Snackbar open={true} autoHideDuration={6000} message={error} />;
+  }
+
   return (
     <div className="pollPageContainer">
       <div className="formContainer">
@@ -78,18 +86,24 @@ function LogIn() {
             )}
           </div>
           <div className="button">
-            <Button
-              value={"Log In"}
-              classname={"buttonStyle"}
-              type={"submit"}
-            />
-            <NavLink to="/signup">
-              <Button
-                value={"Sign Up"}
-                classname={"buttonStyle"}
-                type={"submit"}
-              />
-            </NavLink>
+            {status ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              <>
+                <Button
+                  value={"Log In"}
+                  classname={"buttonStyle"}
+                  type={"submit"}
+                />
+                <NavLink to="/signup">
+                  <Button
+                    value={"Sign Up"}
+                    classname={"buttonStyle"}
+                    type={"submit"}
+                  />
+                </NavLink>
+              </>
+            )}
           </div>
         </form>
       </div>

@@ -9,8 +9,8 @@ const initialState = {
   data: [],
 };
 
-const pollSlice = createSlice({
-  name: "pollList",
+const eachPollSlice = createSlice({
+  name: "eachPollList",
   initialState,
   reducers: {
     startLoading(state) {
@@ -21,7 +21,7 @@ const pollSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = true;
-      state.data = action.payload.data;
+      state.data = { ...action.payload.data };
     },
     hasError(state, action) {
       state.isError = true;
@@ -32,18 +32,18 @@ const pollSlice = createSlice({
   },
 });
 
-export function fetchedData() {
+export function eachData(id) {
   return async () => {
-    dispatch(pollSlice.actions.startLoading());
+    dispatch(eachPollSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.get("list_polls");
-      dispatch(pollSlice.actions.loginSuccess(response.data));
+      const response = await axiosInstance.get(`list_poll?id=${id}`);
+      dispatch(eachPollSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(pollSlice.actions.hasError(e));
+      dispatch(eachPollSlice.actions.hasError(e));
     }
   };
 }
 
-export const { startLoading, hasError, loginSuccess } = pollSlice.actions;
+export const { startLoading, hasError, loginSuccess } = eachPollSlice.actions;
 
-export default pollSlice.reducer;
+export default eachPollSlice.reducer;

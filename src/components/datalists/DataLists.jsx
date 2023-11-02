@@ -1,10 +1,9 @@
 import React from "react";
 import "./DataLists.css";
 
-
-const DataLists = ({ values }) => {
+const DataLists = ({ values, onclick }) => {
   return (
-    <li className="listContainer">
+    <li className="listContainer" onClick={onclick}>
       <h1 className="title">{values.title}</h1>
       <ul className="options">
         {values.options.map((each) => (

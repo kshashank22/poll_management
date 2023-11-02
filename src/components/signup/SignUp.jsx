@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { TextField } from "@material-ui/core";
 import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
@@ -8,8 +9,12 @@ import { signup } from "../../redux/reducers/signupSlice";
 import { v4 as uuidv4 } from "uuid";
 import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
+import { CircularProgress, Snackbar } from "@material-ui/core";
 
 function SignUp() {
+  const status = useSelector((state) => state.signupSlice.isLoading);
+  const error = useSelector((state) => state.signupSlice.isError);
+
   const formikData = useFormik({
     initialValues: { id: uuidv4(), username: "", password: "", role: "Guest" },
     onSubmit: (values, actions) => {
@@ -20,6 +25,13 @@ function SignUp() {
     },
     validationSchema: basicSchema,
   });
+
+  if (status) {
+    return <CircularProgress color="inherit" />;
+  }
+  if (error) {
+    return <Snackbar open={true} autoHideDuration={6000} message={error} />;
+  }
 
   return (
     <div className="pollPageContainer">
