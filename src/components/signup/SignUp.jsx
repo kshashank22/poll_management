@@ -12,6 +12,7 @@ import Button from "../button/Button";
 import { CircularProgress, Snackbar } from "@material-ui/core";
 
 function SignUp() {
+  const signupSlice=useSelector((state)=>state.signupSlice)
   const status = useSelector((state) => state.signupSlice.isLoading);
   const error = useSelector((state) => state.signupSlice.isError);
 
@@ -26,9 +27,6 @@ function SignUp() {
     validationSchema: basicSchema,
   });
 
-  if (status) {
-    return <CircularProgress color="inherit" />;
-  }
   if (error) {
     return <Snackbar open={true} autoHideDuration={6000} message={error} />;
   }
@@ -85,19 +83,28 @@ function SignUp() {
               <option value="Admin">Admin</option>
             </select>
           </div>
+          {!signupSlice.data.token && (
+            <p className="user">{signupSlice.data.message}</p>
+          )}
           <div className="button">
-            <Button
-              value={"Sign Up"}
-              classname={"buttonStyle"}
-              type={"submit"}
-            />
-            <NavLink to="/">
-              <Button
-                value={"Sign In"}
-                classname={"buttonStyle"}
-                type={"submit"}
-              />
-            </NavLink>
+            {status ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              <>
+                <Button
+                  value={"Sign Up"}
+                  classname={"buttonStyle"}
+                  type={"submit"}
+                />
+                <NavLink to="/">
+                  <Button
+                    value={"Sign In"}
+                    classname={"buttonStyle"}
+                    type={"submit"}
+                  />
+                </NavLink>
+              </>
+            )}
           </div>
         </form>
       </div>

@@ -34,9 +34,10 @@ function LogIn() {
       username: "",
       password: "",
     },
-    onSubmit: (values) => {
+    onSubmit: (values, actions) => {
       try {
         dispatch(login(values));
+        dispatch(resetReducer());
       } catch (error) {}
     },
     validationSchema: basicSchema,
@@ -85,6 +86,9 @@ function LogIn() {
               ""
             )}
           </div>
+          {!loginSlice.data.token && (
+            <p className="user">{loginSlice.data.data}</p>
+          )}
           <div className="button">
             {status ? (
               <CircularProgress color="inherit" />
