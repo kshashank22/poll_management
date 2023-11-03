@@ -13,3 +13,8 @@ export const basicSchema = yup.object().shape({
     })
     .required("*Password is Required"),
 });
+
+export const optionSchema = yup.object().shape({
+  option:yup.string().trim().min(1),
+  title:yup.string().trim().min(1)
+})

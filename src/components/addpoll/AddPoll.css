@@ -1,0 +1,7 @@
+.addPollContainer{
+    display:flex;
+    justify-content: center;
+}
+.buttonContainer{
+    text-align: center;
+}

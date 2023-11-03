@@ -34,10 +34,12 @@ function LogIn() {
       username: "",
       password: "",
     },
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
       try {
+        if (!loginSlice.data.token) {
+          dispatch(resetReducer());
+        }
         dispatch(login(values));
-        dispatch(resetReducer());
       } catch (error) {}
     },
     validationSchema: basicSchema,

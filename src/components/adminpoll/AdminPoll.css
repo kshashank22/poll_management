@@ -23,3 +23,13 @@
 .loader {
   text-align: center;
 }
+.addPoll{
+  margin-top: 3px;
+}
+.addIcon{
+  font-size: large;
+  display: flex;
+  justify-content: flex-end;
+  margin-right:50px;
+  margin-bottom:10px;
+}
