@@ -13,11 +13,13 @@ import AddIcon from "@mui/icons-material/Add";
 import AddPoll from "../addpoll/AddPoll";
 import { useFormik } from "formik";
 import { addPoll } from "../../redux/reducers/addPollSlice";
+import { newPollSchema } from "../../utilities/utilities";
 
 function AdminPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
   const status = useSelector((state) => state.pollSlice.isLoading);
   const error = useSelector((state) => state.pollSlice.isError);
+  const addStatus = useSelector((state) => state.addPollSlice.isLoading);
   const navigate = useNavigate();
 
   const [addNewPoll, setAddNewPoll] = useState(false);
@@ -38,6 +40,7 @@ function AdminPoll() {
       setAddNewPoll(false);
       actions.resetForm();
     },
+    validationSchema:newPollSchema
   });
 
   const handleAdd = () => {
@@ -75,6 +78,7 @@ function AdminPoll() {
           onchange={formikData.handleChange}
           addnewtitle={formikData.values.newTitle}
           addnewoption1={formikData.values.option1}
+          onstatus={addStatus}
         />
       ) : (
         <>

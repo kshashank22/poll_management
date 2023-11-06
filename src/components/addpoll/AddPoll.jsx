@@ -2,16 +2,18 @@ import React from "react";
 import { TextField } from "@material-ui/core";
 import Button from "../button/Button";
 import "./AddPoll.css";
+import { CircularProgress } from "@mui/material";
 const AddPoll = ({
   onsubmit,
   onblur,
   onchange,
   addnewtitle,
   addnewoption1,
+  onstatus,
 }) => {
   return (
     <div className="addPollContainer">
-      <form onSubmit={onsubmit}>
+      <form onSubmit={onsubmit} autoComplete="off">
         <div>
           <p>Title</p>
           <TextField
@@ -39,7 +41,7 @@ const AddPoll = ({
         </div>
 
         <div className="buttonContainer">
-          <Button value={"submit"} type={"submit"} classname={"buttonStyle"} />
+          {onstatus?(<CircularProgress color="inherit" />):(<Button value={"submit"} type={"submit"} classname={"buttonStyle"} />)}
         </div>
       </form>
     </div>

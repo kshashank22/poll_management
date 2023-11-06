@@ -6,6 +6,7 @@ import eachPollSlice from "./eachPollSlice";
 import optionsSlice from "./optionsSlice";
 import deleteOptionSlice from "./deleteOptionSlice";
 import addPollSlice from "./addPollSlice";
+import deleteSlice from "./deleteSlice";
 
 const rootReducer = combineReducers({
   loginSlice: loginSlice,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   eachPollSlice: eachPollSlice,
   optionsSlice: optionsSlice,
   deleteOptionSlice:deleteOptionSlice,
+  deleteSlice:deleteSlice,
   addPollSlice:addPollSlice,
 });
 

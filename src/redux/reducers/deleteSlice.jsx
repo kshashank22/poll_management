@@ -42,7 +42,7 @@ export function deletePoll(id) {
   return async () => {
     dispatch(deleteSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
+      const response = await axiosInstance.delete(
         `delete_poll?id=${id}`,
         { id }
       );

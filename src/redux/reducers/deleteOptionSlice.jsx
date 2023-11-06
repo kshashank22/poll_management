@@ -42,7 +42,7 @@ export function deleteOption(id,opt) {
   return async () => {
     dispatch(deleteOptionSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
+      const response = await axiosInstance.delete(
         `delete_poll_option?id=${id}&option_text=${opt}`,
         { id,opt }
       );

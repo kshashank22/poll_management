@@ -21,7 +21,7 @@ const pollSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = true;
-      state.data = action.payload.data;
+      state.data = action.payload.data.reverse();
     },
     hasError(state, action) {
       state.isError = true;

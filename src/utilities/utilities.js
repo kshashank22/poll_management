@@ -15,6 +15,15 @@ export const basicSchema = yup.object().shape({
 });
 
 export const optionSchema = yup.object().shape({
-  option:yup.string().trim().min(1),
-  title:yup.string().trim().min(1)
+  option:yup.string().trim().min(2).required()
+})
+
+export const titleSchema = yup.object().shape({
+  title:yup.string().trim().min(2).required()
+})
+
+
+export const newPollSchema = yup.object().shape({
+  newTitle:yup.string().trim().min(2).required(),
+  option1:yup.string().trim().min(2).required()
 })
