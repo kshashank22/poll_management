@@ -14,8 +14,16 @@ function AllRoutes() {
       <Route exact path="/signup" element={<SignUp />}></Route>
       <Route exact path="/adminpoll" element={<AdminPoll />}></Route>
       <Route exact path="/eachpoll" element={<EachDataPoll />}></Route>
-      <Route exact path="/edittitle" element={<EditPoll/>}></Route>
-      <Route exact path="/addoption" element={<AddOptionPoll/>}  ></Route>
+      <Route
+        exact
+        path="/edittitle/:edittitleId/:edittitle"
+        element={<EditPoll />}
+      ></Route>
+      <Route
+        exact
+        path="/addoption/:addoptionId"
+        element={<AddOptionPoll />}
+      ></Route>
     </Routes>
   );
 }

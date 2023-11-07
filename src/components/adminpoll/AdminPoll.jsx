@@ -27,11 +27,13 @@ function AdminPoll() {
   useEffect(() => {
     dispatch(fetchedData());
   }, []);
+  
+  
 
   const formikData = useFormik({
     initialValues: {
       newTitle: "",
-      option1: "",
+      options:"",
     },
     onSubmit: (values, actions) => {
       try {
@@ -77,7 +79,7 @@ function AdminPoll() {
           onblur={formikData.handleBlur}
           onchange={formikData.handleChange}
           addnewtitle={formikData.values.newTitle}
-          addnewoption1={formikData.values.option1}
+          addnewoption={formikData.values.options}
           onstatus={addStatus}
         />
       ) : (

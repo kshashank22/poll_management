@@ -5,19 +5,27 @@ import { updateTitle } from "../../redux/reducers/optionsSlice";
 import { TextField } from "@mui/material";
 import Button from "../button/Button";
 import "./EditPoll.css";
-import {titleSchema } from "../../utilities/utilities";
+import { titleSchema } from "../../utilities/utilities";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
 
-const EditPoll = ({ value, updateTitleId, setUpdateTitleId }) => {
+const EditPoll = () => {
+  const loading = useSelector((state) => state.optionsSlice.isLoading);
+  const navigate = useNavigate();
+  const { edittitleId, edittitle } = useParams();
+
   const formikData = useFormik({
     initialValues: {
-      title: value,
+      title: edittitle,
     },
     onSubmit: (values, actions) => {
-      console.log(updateTitleId);
       try {
-        dispatch(updateTitle(values, updateTitleId));
+        dispatch(updateTitle(values, edittitleId));
+        if (edittitleId) {
+          navigate("/adminpoll");
+        }
       } catch (error) {}
-      setUpdateTitleId(null);
       actions.resetForm();
     },
     validationSchema: titleSchema,
@@ -39,11 +47,15 @@ const EditPoll = ({ value, updateTitleId, setUpdateTitleId }) => {
             />
           </div>
           <div className="button">
-            <Button
-              value={"Submit"}
-              classname={"buttonStyle"}
-              type={"submit"}
-            />
+            {loading ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              <Button
+                value={"Submit"}
+                classname={"buttonStyle"}
+                type={"submit"}
+              />
+            )}
           </div>
         </form>
       </div>

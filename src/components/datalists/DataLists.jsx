@@ -1,92 +1,51 @@
-import React, { useState } from "react";
+import React from "react";
 import "./DataLists.css";
 import { dispatch } from "../../redux/store/store";
-import { fetchedData } from "../../redux/reducers/pollSlice";
-import { optionsAdd, updateTitle } from "../../redux/reducers/optionsSlice";
-import { useFormik } from "formik";
 import AddIcon from "@mui/icons-material/Add";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { TextField } from "@material-ui/core";
-import { optionSchema } from "../../utilities/utilities";
 import { deleteOption } from "../../redux/reducers/deleteOptionSlice";
 import { deletePoll } from "../../redux/reducers/deleteSlice";
-import { useNavigate } from "react-router-dom";
-import EditPoll from "../editpoll/EditPoll";
-import AddOptionPoll from "../addoptionpoll/AddOptionPoll";
+import { NavLink, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const DataLists = ({ values, onclick }) => {
-  const [addOptionId, setAddOptionId] = useState(null);
-  const [updateTitleId, setUpdateTitleId] = useState(null);
-
-  const navigate=useNavigate()
-
-  // const formikData = useFormik({
-  //   initialValues: {
-  //     option: "",
-  //     title: values.title,
-  //   },
-  //   onSubmit: (values, actions) => {
-  //     try {
-  //       if (addOptionId) {
-  //         dispatch(optionsAdd(values, addOptionId));
-  //       } else if (updateTitleId) {
-  //         dispatch(updateTitle(values, updateTitleId));
-  //       }
-  //     } catch (error) {}
-  //     setAddOptionId(null)
-  //     setUpdateTitleId(null)
-  //     actions.resetForm();
-  //   },
-  //   validationSchema: optionSchema,
-  // });
-
-  const handleAdd = (id) => {
-    setAddOptionId(id);
-    // navigate("/addoption")
-  };
-
-  const handleUpdate = (id) => {
-    setUpdateTitleId(id);
-    // navigate("/edittitle")
-  };
+  const success = useSelector((state) => state.deleteOptionSlice.isSuccess);
+  const navigate = useNavigate();
 
   const handleDeleteOption = (id, opt) => {
     dispatch(deleteOption(id, opt));
-    alert("option is deleted")
+    if (success) {
+      alert("option is deleted");
+      navigate("/adminpoll");
+    }
   };
 
   const handleDelete = (id) => {
     dispatch(deletePoll(id));
-    alert("poll is deleted")
+    if (success) {
+      alert("poll is deleted");
+      navigate("/adminpoll");
+    }
   };
 
   return (
     <li className="listContainer">
       <div className="titleContainer">
-        {/* {updateTitleId ? (
-          <form autoComplete="off" onSubmit={formikData.handleSubmit}>
-            <TextField
-              type="text"
-              name="title"
-              id="updateTitle"
-              value={formikData.values.title}
-              onBlur={formikData.handleSubmit}
-              onChange={formikData.handleChange}
-            />
-          </form>
-        ) : ( */}
-          <h1 className="title" onClick={onclick}>
-            {values.title}
-          </h1>
-        {/* )} */}
-
+        <h1 className="title" onClick={onclick}>
+          {values.title}
+        </h1>
         <div className="iconsContainer">
-          {values.options.length<4&&(<AddIcon className="icons" onClick={() => handleAdd(values._id)} />)}
-          <EditIcon
-            className="icons"
-            onClick={() => handleUpdate(values._id)}
-          />
+          {values.options.length < 4 && (
+            <NavLink to={`/addoption/${values._id}`}>
+              <AddIcon className="icons" />
+            </NavLink>
+          )}
+
+          <NavLink to={`/edittitle/${values._id}/${values.title}`}>
+            <EditIcon className="icons" />
+          </NavLink>
+
           <DeleteIcon
             className="icons"
             onClick={() => handleDelete(values._id)}
@@ -110,20 +69,6 @@ const DataLists = ({ values, onclick }) => {
           </div>
         ))}
       </ul>
-      {/* {addOptionId && (
-        <form autoComplete="off" onSubmit={formikData.handleSubmit}>
-          <TextField
-            type="text"
-            name="option"
-            id="option"
-            value={formikData.values.option}
-            onBlur={formikData.handleSubmit}
-            onChange={formikData.handleChange}
-          />
-        </form>
-      )} */}
-      {updateTitleId&&<EditPoll value={values.title} updateTitleId={updateTitleId} setUpdateTitleId={setUpdateTitleId}/>}
-      {addOptionId&&(<AddOptionPoll addOptionId={addOptionId} setAddOptionId={setAddOptionId}/>)}
     </li>
   );
 };

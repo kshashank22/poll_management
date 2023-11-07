@@ -6,22 +6,31 @@ import { TextField } from "@mui/material";
 import Button from "../button/Button";
 import "../editpoll/EditPoll.css";
 import { optionSchema } from "../../utilities/utilities";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { CircularProgress } from "@material-ui/core";
 
-const AddOptionPoll = ({ addOptionId, setAddOptionId }) => {
+const AddOptionPoll = () => {
+  const loading = useSelector((state) => state.optionsSlice.isLoading);
+  const navigate = useNavigate();
+  const { addoptionId } = useParams();
+
   const formikData = useFormik({
     initialValues: {
       option: "",
     },
     onSubmit: (values, actions) => {
-      console.log(addOptionId);
       try {
-        dispatch(optionsAdd(values, addOptionId));
+        dispatch(optionsAdd(values, addoptionId));
+        if (addoptionId) {
+          navigate("/adminpoll");
+        }
       } catch (error) {}
-      setAddOptionId(null);
       actions.resetForm();
     },
     validationSchema: optionSchema,
   });
+
   return (
     <div className="adminPollContainer editContainer">
       <div className="editBox">
@@ -39,11 +48,15 @@ const AddOptionPoll = ({ addOptionId, setAddOptionId }) => {
             />
           </div>
           <div className="button">
-            <Button
-              value={"Submit"}
-              classname={"buttonStyle"}
-              type={"submit"}
-            />
+            {loading ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              <Button
+                value={"Submit"}
+                classname={"buttonStyle"}
+                type={"submit"}
+              />
+            )}
           </div>
         </form>
       </div>

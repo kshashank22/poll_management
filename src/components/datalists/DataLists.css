@@ -26,9 +26,11 @@
 }
 .icons {
   margin: 0px 10px;
+  cursor: pointer;
 }
 .deleteIcon {
   margin-left: 10px;
+  cursor: pointer;
 }
 .optionContainer {
   display: flex;
