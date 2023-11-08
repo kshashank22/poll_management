@@ -25,5 +25,5 @@ export const titleSchema = yup.object().shape({
 
 export const newPollSchema = yup.object().shape({
   newTitle:yup.string().trim().min(2).required(),
-  option1:yup.string().trim().min(2).required()
+  options:yup.string().trim().min(2).required()
 })

@@ -38,13 +38,13 @@ const addPollSlice = createSlice({
   },
 });
 
-export function addPoll(payload) {
+export function addPoll(newTitle,newOptions) {
   return async () => {
     dispatch(addPollSlice.actions.startLoading());
     try {
       const response = await axiosInstance.post(
-        `add_poll?title=${payload.newTitle}&options=${payload.option1}`,
-        { payload }
+        `add_poll?title=${newTitle}&options=${newOptions.map((each)=>each.option)}`,
+        { newTitle,newOptions }
       );
       dispatch(addPollSlice.actions.loginSuccess(response.data));
     } catch (e) {

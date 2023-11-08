@@ -23,17 +23,17 @@ function AdminPoll() {
   const navigate = useNavigate();
 
   const [addNewPoll, setAddNewPoll] = useState(false);
+  const [newTitle,setNewTitle]=useState("");
+  const[newOptions,setNewOptions]=useState([{option:""}]);
 
   useEffect(() => {
     dispatch(fetchedData());
   }, []);
-  
-  
 
   const formikData = useFormik({
     initialValues: {
       newTitle: "",
-      options:"",
+      options: "",
     },
     onSubmit: (values, actions) => {
       try {
@@ -42,7 +42,7 @@ function AdminPoll() {
       setAddNewPoll(false);
       actions.resetForm();
     },
-    validationSchema:newPollSchema
+    validationSchema: newPollSchema,
   });
 
   const handleAdd = () => {
@@ -67,20 +67,23 @@ function AdminPoll() {
   return (
     <div className="adminPollContainer">
       <h1 className="heading">Admin Poll</h1>
-      <div className="addIcon">
-        <label className="addPoll" onClick={handleAdd}>
-          Add Poll
-        </label>
+      <div className="addIcon" onClick={handleAdd}>
+        <label className="addPoll">Add Poll</label>
         <AddIcon />
       </div>
       {addNewPoll ? (
         <AddPoll
-          onsubmit={formikData.handleSubmit}
-          onblur={formikData.handleBlur}
-          onchange={formikData.handleChange}
-          addnewtitle={formikData.values.newTitle}
-          addnewoption={formikData.values.options}
-          onstatus={addStatus}
+          // onsubmit={formikData.handleSubmit}
+          // onblur={formikData.handleBlur}
+          // onchange={formikData.handleChange}
+          // value={formikData.values}
+          // onstatus={addStatus}
+          addNewPoll={addNewPoll}
+          setAddNewPoll={setAddNewPoll}
+          newTitle={newTitle}
+          setNewTitle={setNewTitle}
+          newOptions={newOptions}
+          setNewOptions={setNewOptions}
         />
       ) : (
         <>

@@ -1,26 +1,52 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField } from "@material-ui/core";
 import Button from "../button/Button";
 import "./AddPoll.css";
 import { CircularProgress } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-const AddPoll = ({
-  onsubmit,
-  onblur,
-  onchange,
-  addnewtitle,
-  addnewoption,
-  onstatus,
-}) => {
-  const [display, setDisplay] = useState(false);
+import { dispatch } from "../../redux/store/store";
+import { addPoll } from "../../redux/reducers/addPollSlice";
 
-  const handleAddOptions = () => {
-    setDisplay(true);
+const AddPoll = ({
+  setAddNewPoll,
+  onstatus,
+  newTitle,
+  setNewTitle,
+  newOptions,
+  setNewOptions,
+}) => {
+  const handleClick = () => {
+    setNewOptions([...newOptions, { option: "" }]);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(addPoll(newTitle, newOptions));
+    setNewOptions([{ option: "" }]);
+    setNewTitle("");
+    setAddNewPoll(false);
+  };
+
+  const handleChange = (event, i) => {
+    const { name, value } = event.target;
+    const onChangeValue = [...newOptions];
+    onChangeValue[i][name] = value;
+    setNewOptions(onChangeValue);
+  };
+
+  const updatedInput = (event) => {
+    if (event.target.value !== " ") {
+      setNewTitle(event.target.value);
+    }
   };
 
   return (
     <div className="addPollContainer">
-      <form onSubmit={onsubmit} autoComplete="off">
+      <div className="pollContainer">
+      <form
+        autoComplete="off"
+        onSubmit={handleSubmit}
+      >
         <div>
           <p>Title</p>
           <TextField
@@ -28,39 +54,28 @@ const AddPoll = ({
             className="text"
             name="newTitle"
             id="newTitle"
-            value={addnewtitle}
-            onBlur={onblur}
-            onChange={onchange}
+            value={newTitle}
+            onChange={updatedInput}
           />
         </div>
 
-        <div>
-          <p>option</p>
-          <TextField
-            type="text"
-            className="text"
-            name="option"
-            id="option"
-            value={addnewoption}
-            onBlur={onblur}
-            onChange={onchange}
-          />
-        </div>
-        {display && (
+        {newOptions.map((each, index) => (
           <div>
             <p>option</p>
             <TextField
-              type="text"
               className="text"
-              name="option3"
-              id="option3"
-              value={addnewoption}
-              onBlur={onblur}
-              onChange={onchange}
+              name="option"
+              type="text"
+              value={each.option}
+              onChange={(event) => handleChange(event, index)}
             />
           </div>
+        ))}
+
+        {newOptions.length <= 3 && (
+          <AddIcon onClick={handleClick} className="addOption" />
         )}
-        <AddIcon onClick={handleAddOptions} className="addOption"/>
+
         <div className="buttonContainer">
           {onstatus ? (
             <CircularProgress color="inherit" />
@@ -69,10 +84,12 @@ const AddPoll = ({
               value={"submit"}
               type={"submit"}
               classname={"buttonStyle"}
+              onclick={handleSubmit}
             />
           )}
         </div>
       </form>
+      </div>
     </div>
   );
 };
