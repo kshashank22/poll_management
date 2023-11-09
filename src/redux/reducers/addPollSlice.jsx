@@ -38,15 +38,35 @@ const addPollSlice = createSlice({
   },
 });
 
-export function addPoll(newTitle,newOptions) {
+export function addPoll(newTitle, newOptionsList) {
   return async () => {
     dispatch(addPollSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
-        `add_poll?title=${newTitle}&options=${newOptions.map((each)=>each.option)}`,
-        { newTitle,newOptions }
-      );
-      dispatch(addPollSlice.actions.loginSuccess(response.data));
+      if (newOptionsList.length === 1) {
+        const response = await axiosInstance.post(
+          `add_poll?title=${newTitle}&options=${newOptionsList[0]}`,
+          { newTitle, newOptionsList }
+        );
+        dispatch(addPollSlice.actions.loginSuccess(response.data));
+      } else if (newOptionsList.length === 2) {
+        const response = await axiosInstance.post(
+          `add_poll?title=${newTitle}&options=${newOptionsList[0]}____${newOptionsList[1]}`,
+          { newTitle, newOptionsList }
+        );
+        dispatch(addPollSlice.actions.loginSuccess(response.data));
+      } else if (newOptionsList.length === 3) {
+        const response = await axiosInstance.post(
+          `add_poll?title=${newTitle}&options=${newOptionsList[0]}____${newOptionsList[1]}____${newOptionsList[2]}`,
+          { newTitle, newOptionsList }
+        );
+        dispatch(addPollSlice.actions.loginSuccess(response.data));
+      } else {
+        const response = await axiosInstance.post(
+          `add_poll?title=${newTitle}&options=${newOptionsList[0]}____${newOptionsList[1]}____${newOptionsList[2]}____${newOptionsList[3]}`,
+          { newTitle, newOptionsList }
+        );
+        dispatch(addPollSlice.actions.loginSuccess(response.data));
+      }
     } catch (e) {
       dispatch(addPollSlice.actions.hasError(e));
     }

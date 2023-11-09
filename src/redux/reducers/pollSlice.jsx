@@ -29,6 +29,12 @@ const pollSlice = createSlice({
       state.isSuccess = false;
       state.data = action.payload;
     },
+    resetReducer(state) {
+      state.isError = false;
+      state.isLoading = false;
+      state.isSuccess = false;
+      state.data = {};
+    },
   },
 });
 

@@ -11,39 +11,20 @@ import { useNavigate } from "react-router-dom";
 import { CircularProgress, Snackbar } from "@material-ui/core";
 import AddIcon from "@mui/icons-material/Add";
 import AddPoll from "../addpoll/AddPoll";
-import { useFormik } from "formik";
-import { addPoll } from "../../redux/reducers/addPollSlice";
-import { newPollSchema } from "../../utilities/utilities";
 
 function AdminPoll() {
   const listItems = useSelector((state) => state.pollSlice.data);
   const status = useSelector((state) => state.pollSlice.isLoading);
   const error = useSelector((state) => state.pollSlice.isError);
-  const addStatus = useSelector((state) => state.addPollSlice.isLoading);
   const navigate = useNavigate();
 
   const [addNewPoll, setAddNewPoll] = useState(false);
-  const [newTitle,setNewTitle]=useState("");
-  const[newOptions,setNewOptions]=useState([{option:""}]);
+  const [newTitle, setNewTitle] = useState("");
+  const [newOptions, setNewOptions] = useState([{ option: "" }]);
 
   useEffect(() => {
     dispatch(fetchedData());
   }, []);
-
-  const formikData = useFormik({
-    initialValues: {
-      newTitle: "",
-      options: "",
-    },
-    onSubmit: (values, actions) => {
-      try {
-        dispatch(addPoll(values));
-      } catch (error) {}
-      setAddNewPoll(false);
-      actions.resetForm();
-    },
-    validationSchema: newPollSchema,
-  });
 
   const handleAdd = () => {
     setAddNewPoll(!addNewPoll);
@@ -73,11 +54,7 @@ function AdminPoll() {
       </div>
       {addNewPoll ? (
         <AddPoll
-          // onsubmit={formikData.handleSubmit}
-          // onblur={formikData.handleBlur}
-          // onchange={formikData.handleChange}
-          // value={formikData.values}
-          // onstatus={addStatus}
+          onstatus={status}
           addNewPoll={addNewPoll}
           setAddNewPoll={setAddNewPoll}
           newTitle={newTitle}

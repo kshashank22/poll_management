@@ -6,27 +6,34 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { deleteOption } from "../../redux/reducers/deleteOptionSlice";
 import { deletePoll } from "../../redux/reducers/deleteSlice";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { fetchedData } from "../../redux/reducers/pollSlice";
+import { resetReducer } from "../../redux/reducers/deleteOptionSlice";
+import { resetReducers } from "../../redux/reducers/deleteSlice";
 
 const DataLists = ({ values, onclick }) => {
-  const success = useSelector((state) => state.deleteOptionSlice.isSuccess);
-  const navigate = useNavigate();
+  const optionSuccess = useSelector(
+    (state) => state.deleteOptionSlice.isSuccess
+  );
+  const pollSuccess = useSelector((state) => state.deleteSlice.isSuccess);
+
+  if (optionSuccess) {
+    dispatch(fetchedData());
+    dispatch(resetReducer());
+  }
+
+  if (pollSuccess) {
+    dispatch(fetchedData());
+    dispatch(resetReducers());
+  }
 
   const handleDeleteOption = (id, opt) => {
     dispatch(deleteOption(id, opt));
-    if (success) {
-      alert("option is deleted");
-      navigate("/adminpoll");
-    }
   };
 
   const handleDelete = (id) => {
     dispatch(deletePoll(id));
-    if (success) {
-      alert("poll is deleted");
-      navigate("/adminpoll");
-    }
   };
 
   return (

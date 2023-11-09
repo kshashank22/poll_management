@@ -1,7 +1,7 @@
 import React from "react";
 import { dispatch } from "../../redux/store/store";
 import { useFormik } from "formik";
-import { optionsAdd } from "../../redux/reducers/optionsSlice";
+import { optionsAdd, resetReducer } from "../../redux/reducers/optionsSlice";
 import { TextField } from "@mui/material";
 import Button from "../button/Button";
 import "../editpoll/EditPoll.css";
@@ -12,8 +12,14 @@ import { CircularProgress } from "@material-ui/core";
 
 const AddOptionPoll = () => {
   const loading = useSelector((state) => state.optionsSlice.isLoading);
+  const status = useSelector((state) => state.optionsSlice.isSuccess);
   const navigate = useNavigate();
   const { addoptionId } = useParams();
+
+  if (status) {
+    dispatch(resetReducer());
+    navigate("/adminpoll");
+  }
 
   const formikData = useFormik({
     initialValues: {
@@ -22,9 +28,6 @@ const AddOptionPoll = () => {
     onSubmit: (values, actions) => {
       try {
         dispatch(optionsAdd(values, addoptionId));
-        if (addoptionId) {
-          navigate("/adminpoll");
-        }
       } catch (error) {}
       actions.resetForm();
     },

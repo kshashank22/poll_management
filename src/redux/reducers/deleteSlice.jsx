@@ -29,7 +29,7 @@ const deleteSlice = createSlice({
       state.isSuccess = false;
       state.data = { ...action.payload };
     },
-    resetReducer(state) {
+    resetReducers(state) {
       state.isError = false;
       state.isLoading = false;
       state.isSuccess = false;
@@ -42,10 +42,9 @@ export function deletePoll(id) {
   return async () => {
     dispatch(deleteSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.delete(
-        `delete_poll?id=${id}`,
-        { id }
-      );
+      const response = await axiosInstance.delete(`delete_poll?id=${id}`, {
+        id,
+      });
       dispatch(deleteSlice.actions.loginSuccess(response.data));
     } catch (e) {
       dispatch(deleteSlice.actions.hasError(e));
@@ -53,6 +52,6 @@ export function deletePoll(id) {
   };
 }
 
-export const { startLoading, hasError, loginSuccess, resetReducer } =
+export const { startLoading, hasError, loginSuccess, resetReducers } =
   deleteSlice.actions;
 export default deleteSlice.reducer;
