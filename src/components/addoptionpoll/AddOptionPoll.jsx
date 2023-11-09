@@ -6,7 +6,7 @@ import { TextField } from "@mui/material";
 import Button from "../button/Button";
 import "../editpoll/EditPoll.css";
 import { optionSchema } from "../../utilities/utilities";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { CircularProgress } from "@material-ui/core";
 
@@ -15,6 +15,7 @@ const AddOptionPoll = () => {
   const status = useSelector((state) => state.optionsSlice.isSuccess);
   const navigate = useNavigate();
   const { addoptionId } = useParams();
+  const location=useLocation()
 
   if (status) {
     dispatch(resetReducer());
@@ -25,19 +26,29 @@ const AddOptionPoll = () => {
     initialValues: {
       option: "",
     },
-    onSubmit: (values, actions) => {
+    onSubmit: (values) => {
       try {
         dispatch(optionsAdd(values, addoptionId));
       } catch (error) {}
-      actions.resetForm();
     },
     validationSchema: optionSchema,
   });
+
+
 
   return (
     <div className="adminPollContainer editContainer">
       <div className="editBox">
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
+        <div>
+            <p className="text">Title</p>
+            <TextField
+              className="textUpdate"
+              type="text"
+              value={location.state}
+              disabled
+            />
+          </div>
           <div>
             <p className="text">Add Option</p>
             <TextField

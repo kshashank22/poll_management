@@ -30,10 +30,15 @@
   margin-top: 3px;
 }
 .addIcon{
-  font-size: large;
   display: flex;
   justify-content:center;
   margin-left:70vw;
   margin-bottom:10px;
+}
+.button{
+  background-color: transparent;
+  border: none;
+  font-size:20px;
   cursor: pointer;
+  margin:10px 0px;
 }

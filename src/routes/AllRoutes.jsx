@@ -16,7 +16,7 @@ function AllRoutes() {
       <Route exact path="/eachpoll" element={<EachDataPoll />}></Route>
       <Route
         exact
-        path="/edittitle/:edittitleId/:edittitle"
+        path="/edittitle/:edittitleId"
         element={<EditPoll />}
       ></Route>
       <Route

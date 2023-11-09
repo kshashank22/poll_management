@@ -29,7 +29,11 @@ const DataLists = ({ values, onclick }) => {
   }
 
   const handleDeleteOption = (id, opt) => {
-    dispatch(deleteOption(id, opt));
+    if (values.options.length < 2) {
+      dispatch(deletePoll(id));
+    } else {
+      dispatch(deleteOption(id, opt));
+    }
   };
 
   const handleDelete = (id) => {
@@ -44,12 +48,11 @@ const DataLists = ({ values, onclick }) => {
         </h1>
         <div className="iconsContainer">
           {values.options.length < 4 && (
-            <NavLink to={`/addoption/${values._id}`}>
+            <NavLink to={`/addoption/${values._id}`} state={values.title}>
               <AddIcon className="icons" />
             </NavLink>
           )}
-
-          <NavLink to={`/edittitle/${values._id}/${values.title}`}>
+          <NavLink to={`/edittitle/${values._id}`} state={values.title}>
             <EditIcon className="icons" />
           </NavLink>
 

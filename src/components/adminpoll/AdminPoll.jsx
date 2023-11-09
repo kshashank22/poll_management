@@ -9,7 +9,6 @@ import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { CircularProgress, Snackbar } from "@material-ui/core";
-import AddIcon from "@mui/icons-material/Add";
 import AddPoll from "../addpoll/AddPoll";
 
 function AdminPoll() {
@@ -48,9 +47,8 @@ function AdminPoll() {
   return (
     <div className="adminPollContainer">
       <h1 className="heading">Admin Poll</h1>
-      <div className="addIcon" onClick={handleAdd}>
-        <label className="addPoll">Add Poll</label>
-        <AddIcon />
+      <div className="addIcon">
+        <Button value={`AddPoll + `} classname={"button"} onclick={handleAdd} />
       </div>
       {addNewPoll ? (
         <AddPoll
