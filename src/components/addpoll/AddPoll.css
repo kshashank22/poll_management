@@ -16,6 +16,10 @@
 }
 .addOption {
   text-align: center;
+  cursor: pointer;
+}
+.close{
+  cursor: pointer;
 }
 .error {
   width: 300px;

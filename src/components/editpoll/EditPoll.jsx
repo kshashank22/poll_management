@@ -33,6 +33,10 @@ const EditPoll = () => {
     },
     validationSchema: titleSchema,
   });
+
+  const handleHome = () => {
+    navigate("/adminpoll");
+  };
   return (
     <div className="adminPollContainer editContainer">
       <div className="editBox">
@@ -45,7 +49,6 @@ const EditPoll = () => {
               name="title"
               id="updateTitle"
               value={formikData.values.title}
-              onBlur={formikData.handleBlur}
               onChange={formikData.handleChange}
             />
           </div>
@@ -59,6 +62,14 @@ const EditPoll = () => {
                 type={"submit"}
               />
             )}
+          </div>
+          <div className="button">
+            <Button
+              value={"Back To Home"}
+              classname={"buttonStyle"}
+              type={"button"}
+              onclick={handleHome}
+            />
           </div>
         </form>
       </div>

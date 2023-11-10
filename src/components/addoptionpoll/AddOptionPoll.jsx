@@ -33,7 +33,10 @@ const AddOptionPoll = () => {
     },
     validationSchema: optionSchema,
   });
-
+  
+  const handleHome=()=>{
+    navigate('/adminpoll')
+  }
 
 
   return (
@@ -57,7 +60,6 @@ const AddOptionPoll = () => {
               name="option"
               id="option"
               value={formikData.values.option}
-              onBlur={formikData.handleSubmit}
               onChange={formikData.handleChange}
             />
           </div>
@@ -71,6 +73,14 @@ const AddOptionPoll = () => {
                 type={"submit"}
               />
             )}
+          </div>
+          <div className="button">
+              <Button
+                value={"Back To Home"}
+                classname={"buttonStyle"}
+                type={"button"}
+                onclick={handleHome}
+              />
           </div>
         </form>
       </div>

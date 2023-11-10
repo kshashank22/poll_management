@@ -6,6 +6,7 @@ import AdminPoll from "../components/adminpoll/AdminPoll";
 import EachDataPoll from "../components/eachdatapoll/EachDataPoll";
 import EditPoll from "../components/editpoll/EditPoll";
 import AddOptionPoll from "../components/addoptionpoll/AddOptionPoll";
+import AddPoll from "../components/addpoll/AddPoll";
 
 function AllRoutes() {
   return (
@@ -13,6 +14,7 @@ function AllRoutes() {
       <Route path="/" element={<LogIn />}></Route>
       <Route exact path="/signup" element={<SignUp />}></Route>
       <Route exact path="/adminpoll" element={<AdminPoll />}></Route>
+      <Route exact path="/addpoll" element={<AddPoll />}></Route>
       <Route exact path="/eachpoll" element={<EachDataPoll />}></Route>
       <Route
         exact

@@ -42,3 +42,6 @@
   cursor: pointer;
   margin:10px 0px;
 }
+.navlink{
+  text-decoration: none;
+}

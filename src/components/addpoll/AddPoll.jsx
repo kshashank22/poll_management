@@ -9,6 +9,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
 import { fetchedData } from "../../redux/reducers/pollSlice";
 import { addPoll, resetReducer } from "../../redux/reducers/addPollSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddPoll = ({
   addNewPoll,
@@ -22,6 +23,7 @@ const AddPoll = ({
   const status = useSelector((state) => state.addPollSlice.isSuccess);
 
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
 
   const handleClick = () => {
     if (newOptions.length > 3) {
@@ -39,6 +41,7 @@ const AddPoll = ({
     setAddNewPoll(!addNewPoll);
     dispatch(fetchedData());
     dispatch(resetReducer());
+    navigate("/adminpoll");
   }
 
   const handleSubmit = (event) => {
@@ -107,7 +110,7 @@ const AddPoll = ({
           {error && (
             <div className="error">
               <p>Maximum 4 options are allowed!</p>
-              <CloseIcon onClick={handleClose} />
+              <CloseIcon className="close" onClick={handleClose} />
             </div>
           )}
 
