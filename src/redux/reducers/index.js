@@ -1,4 +1,4 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
 import loginSlice from "./loginSlice";
 import signupSlice from "./signupSlice";
 import pollSlice from "./pollSlice";
@@ -14,9 +14,9 @@ const rootReducer = combineReducers({
   pollSlice: pollSlice,
   eachPollSlice: eachPollSlice,
   optionsSlice: optionsSlice,
-  deleteOptionSlice:deleteOptionSlice,
-  deleteSlice:deleteSlice,
-  addPollSlice:addPollSlice,
+  deleteOptionSlice: deleteOptionSlice,
+  deleteSlice: deleteSlice,
+  addPollSlice: addPollSlice,
 });
 
 export default rootReducer;

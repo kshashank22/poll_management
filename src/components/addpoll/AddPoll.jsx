@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { dispatch } from "../../redux/store/store";
-import { TextField } from "@material-ui/core";
+import { TextField, CircularProgress } from "@mui/material";
 import Button from "../button/Button";
 import "./AddPoll.css";
-import { CircularProgress } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import CloseIcon from "@mui/icons-material/Close";
 import { useSelector } from "react-redux";
@@ -81,7 +80,7 @@ const AddPoll = ({
       <div className="pollContainer">
         <form autoComplete="off" onSubmit={handleSubmit}>
           <div>
-            <p>Title</p>
+            <p className="addText">Title:</p>
             <TextField
               type="text"
               className="text"
@@ -93,8 +92,8 @@ const AddPoll = ({
           </div>
 
           {newOptions.map((each, index) => (
-            <div key={index}>
-              <p>option</p>
+            <div key={index} className="optionsContainer">
+              <p className="addText">option {index + 1}:</p>
               <TextField
                 className="text"
                 name="option"
@@ -119,7 +118,7 @@ const AddPoll = ({
               <CircularProgress color="inherit" />
             ) : (
               <Button
-                value={"submit"}
+                value={"Submit"}
                 type={"submit"}
                 classname={"buttonStyle"}
                 onclick={handleSubmit}
@@ -128,7 +127,7 @@ const AddPoll = ({
           </div>
           <div className="buttonContainer">
             <Button
-              value={"Back to home"}
+              value={"Back To Home"}
               classname={"buttonStyle"}
               onclick={handleHome}
             />

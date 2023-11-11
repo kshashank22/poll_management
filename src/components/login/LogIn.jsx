@@ -2,14 +2,13 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { dispatch } from "../../redux/store/store";
 import { login, resetReducer } from "../../redux/reducers/loginSlice";
-import { TextField } from "@material-ui/core";
+import { TextField, CircularProgress, Snackbar } from "@mui/material";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
 import "./LogIn.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import Button from "../button/Button";
 import { jwtDecode } from "jwt-decode";
-import { CircularProgress, Snackbar } from "@material-ui/core";
 
 function LogIn() {
   const loginSlice = useSelector((state) => state.loginSlice);
@@ -55,7 +54,7 @@ function LogIn() {
         <h1>Log In</h1>
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
           <div className="label">
-            <label>UserName</label>
+            <label className="labelText">UserName</label>
             <TextField
               type="text"
               className="text"
@@ -72,7 +71,7 @@ function LogIn() {
             ""
           )}
           <div className="label">
-            <label>Password</label>
+            <label className="labelText">Password</label>
             <TextField
               type="password"
               className="text"

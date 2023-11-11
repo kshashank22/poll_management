@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { TextField } from "@material-ui/core";
+import { TextField, CircularProgress, Snackbar } from "@mui/material";
 import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
@@ -9,10 +9,9 @@ import { signup } from "../../redux/reducers/signupSlice";
 import { v4 as uuidv4 } from "uuid";
 import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
-import { CircularProgress, Snackbar } from "@material-ui/core";
 
 function SignUp() {
-  const signupSlice=useSelector((state)=>state.signupSlice)
+  const signupSlice = useSelector((state) => state.signupSlice);
   const status = useSelector((state) => state.signupSlice.isLoading);
   const error = useSelector((state) => state.signupSlice.isError);
 
@@ -37,7 +36,7 @@ function SignUp() {
         <h1>Sign Up</h1>
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
           <div className="label">
-            <label>UserName</label>
+            <label className="labelText">UserName</label>
             <TextField
               type="text"
               className="text"
@@ -54,7 +53,7 @@ function SignUp() {
             ""
           )}
           <div className="label">
-            <label>Password</label>
+            <label className="labelText">Password</label>
             <TextField
               type="password"
               className="text"

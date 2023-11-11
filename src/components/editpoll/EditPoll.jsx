@@ -2,13 +2,12 @@ import React from "react";
 import { dispatch } from "../../redux/store/store";
 import { useFormik } from "formik";
 import { updateTitle, resetReducer } from "../../redux/reducers/optionsSlice";
-import { TextField } from "@mui/material";
+import { TextField, CircularProgress } from "@mui/material";
 import Button from "../button/Button";
 import "./EditPoll.css";
 import { titleSchema } from "../../utilities/utilities";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { CircularProgress } from "@material-ui/core";
 
 const EditPoll = () => {
   const loading = useSelector((state) => state.optionsSlice.isLoading);
@@ -41,7 +40,7 @@ const EditPoll = () => {
     <div className="adminPollContainer editContainer">
       <div className="editBox">
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
-          <div>
+          <div className="textfieldContainer">
             <p className="text">Update Title</p>
             <TextField
               className="textUpdate"

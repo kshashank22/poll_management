@@ -28,7 +28,7 @@ h1 {
   background-color: transparent;
 }
 .label {
-  margin: 10px 0px;
+  margin: 15px 0px;
   display: flex;
   flex-direction: column;
 }
@@ -54,4 +54,9 @@ h1 {
 }
 .role {
   border-radius: 5px;
+  height: 50px;
+}
+
+.labelText {
+  margin-bottom: 5px;
 }

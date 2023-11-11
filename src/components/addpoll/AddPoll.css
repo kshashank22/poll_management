@@ -22,7 +22,7 @@
   cursor: pointer;
 }
 .error {
-  width: 300px;
+  width: 285px;
   height: 40px;
   border-radius: 5px;
   padding: 8px;
@@ -32,4 +32,10 @@
   background-color: rgb(242, 156, 156);
   color: rgb(222, 30, 30);
   margin: 10px 0px;
+}
+.optionsContainer{
+  margin:10px 0px;
+}
+.addText{
+  margin-bottom:5px;
 }

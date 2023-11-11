@@ -2,20 +2,19 @@ import React from "react";
 import { dispatch } from "../../redux/store/store";
 import { useFormik } from "formik";
 import { optionsAdd, resetReducer } from "../../redux/reducers/optionsSlice";
-import { TextField } from "@mui/material";
+import { TextField, CircularProgress } from "@mui/material";
 import Button from "../button/Button";
 import "../editpoll/EditPoll.css";
 import { optionSchema } from "../../utilities/utilities";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { CircularProgress } from "@material-ui/core";
 
 const AddOptionPoll = () => {
   const loading = useSelector((state) => state.optionsSlice.isLoading);
   const status = useSelector((state) => state.optionsSlice.isSuccess);
   const navigate = useNavigate();
   const { addoptionId } = useParams();
-  const location=useLocation()
+  const location = useLocation();
 
   if (status) {
     dispatch(resetReducer());
@@ -33,17 +32,16 @@ const AddOptionPoll = () => {
     },
     validationSchema: optionSchema,
   });
-  
-  const handleHome=()=>{
-    navigate('/adminpoll')
-  }
 
+  const handleHome = () => {
+    navigate("/adminpoll");
+  };
 
   return (
     <div className="adminPollContainer editContainer">
       <div className="editBox">
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
-        <div>
+          <div className="textfieldContainer">
             <p className="text">Title</p>
             <TextField
               className="textUpdate"
@@ -52,7 +50,7 @@ const AddOptionPoll = () => {
               disabled
             />
           </div>
-          <div>
+          <div className="textfieldContainer">
             <p className="text">Add Option</p>
             <TextField
               className="textUpdate"
@@ -75,12 +73,12 @@ const AddOptionPoll = () => {
             )}
           </div>
           <div className="button">
-              <Button
-                value={"Back To Home"}
-                classname={"buttonStyle"}
-                type={"button"}
-                onclick={handleHome}
-              />
+            <Button
+              value={"Back To Home"}
+              classname={"buttonStyle"}
+              type={"button"}
+              onclick={handleHome}
+            />
           </div>
         </form>
       </div>

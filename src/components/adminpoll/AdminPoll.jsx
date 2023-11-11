@@ -8,7 +8,7 @@ import DataLists from "../datalists/DataLists";
 import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import { CircularProgress, Snackbar } from "@mui/material";
 import AddPoll from "../addpoll/AddPoll";
 
 function AdminPoll() {

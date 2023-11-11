@@ -4,7 +4,7 @@ import "../adminpoll/AdminPoll.css";
 import DataLists from "../datalists/DataLists";
 import Button from "../button/Button";
 import { NavLink } from "react-router-dom";
-import { CircularProgress, Snackbar } from "@material-ui/core";
+import { CircularProgress, Snackbar } from "@mui/material";
 
 function EachDataPoll() {
   const listItem = useSelector((state) => state.eachPollSlice.data);

@@ -9,10 +9,12 @@
     padding:20px;
     border-radius:5px;
 }
+.textfieldContainer{
+    margin-bottom:15px;
+}
 .text{
-  margin-top:10px;
+  margin:1px 0px;
 }
 .textUpdate{
     width:100%;
-    margin-top:0px;
 }
