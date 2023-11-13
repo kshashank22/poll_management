@@ -52,6 +52,9 @@
   max-width: 40vw;
   overflow: auto;
 }
+.userOption {
+  margin-top: 8px;
+}
 .voteContainer {
   display: flex;
   justify-content: space-between;

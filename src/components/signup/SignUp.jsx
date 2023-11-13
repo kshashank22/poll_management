@@ -26,10 +26,6 @@ function SignUp() {
     validationSchema: basicSchema,
   });
 
-  if (error) {
-    return <Snackbar open={true} autoHideDuration={6000} message={error} />;
-  }
-
   return (
     <div className="pollPageContainer">
       <div className="formContainer">
@@ -106,6 +102,9 @@ function SignUp() {
             )}
           </div>
         </form>
+        {error && (
+          <Snackbar open={true} autoHideDuration={6000} message={error} />
+        )}
       </div>
     </div>
   );
