@@ -6,11 +6,11 @@ const initialState = {
   isLoading: false,
   isSuccess: false,
   isError: false,
-  data: {},
+  data: [],
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const pollSlice = createSlice({
+  name: "pollList",
   initialState,
   reducers: {
     startLoading(state) {
@@ -21,13 +21,13 @@ const loginSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
       state.isSuccess = true;
-      state.data = { ...action.payload };
+      state.data = action.payload.data.reverse();
     },
     hasError(state, action) {
       state.isError = true;
       state.isLoading = false;
       state.isSuccess = false;
-      state.data = { ...action.payload };
+      state.data = action.payload;
     },
     resetReducer(state) {
       state.isError = false;
@@ -38,21 +38,18 @@ const loginSlice = createSlice({
   },
 });
 
-export function login(payload) {
+export function fetchedData() {
   return async () => {
-    dispatch(loginSlice.actions.startLoading());
+    dispatch(pollSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
-        `login?username=${payload.username}&password=${payload.password}`,
-        { payload }
-      );
-      dispatch(loginSlice.actions.loginSuccess(response.data));
+      const response = await axiosInstance.get("list_polls");
+      dispatch(pollSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(loginSlice.actions.hasError(e));
+      dispatch(pollSlice.actions.hasError(e));
     }
   };
 }
 
-export const { startLoading, hasError, loginSuccess, resetReducer } =
-  loginSlice.actions;
-export default loginSlice.reducer;
+export const { startLoading, hasError, loginSuccess } = pollSlice.actions;
+
+export default pollSlice.reducer;

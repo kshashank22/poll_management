@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import axiosInstance from "../../utilities/axios";
+import axiosInstance from "../../utilities/voteaxios";
 import { dispatch } from "../store/store";
 
 const initialState = {
@@ -9,8 +9,8 @@ const initialState = {
   data: {},
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const votePollSlice = createSlice({
+  name: "voteslice",
   initialState,
   reducers: {
     startLoading(state) {
@@ -38,21 +38,21 @@ const loginSlice = createSlice({
   },
 });
 
-export function login(payload) {
+export function vote(id, option) {
   return async () => {
-    dispatch(loginSlice.actions.startLoading());
+    dispatch(votePollSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
-        `login?username=${payload.username}&password=${payload.password}`,
-        { payload }
+      const response = await axiosInstance.get(
+        `do_vote?id=${id}&option_text=${option}`,
+        { id, option }
       );
-      dispatch(loginSlice.actions.loginSuccess(response.data));
+      dispatch(votePollSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(loginSlice.actions.hasError(e));
+      dispatch(votePollSlice.actions.hasError(e));
     }
   };
 }
 
 export const { startLoading, hasError, loginSuccess, resetReducer } =
-  loginSlice.actions;
-export default loginSlice.reducer;
+  votePollSlice.actions;
+export default votePollSlice.reducer;

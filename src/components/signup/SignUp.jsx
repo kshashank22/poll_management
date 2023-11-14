@@ -1,5 +1,6 @@
 import React from "react";
-import { TextField } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { TextField, CircularProgress, Snackbar } from "@mui/material";
 import "../../components/login/LogIn.css";
 import { useFormik } from "formik";
 import { basicSchema } from "../../utilities/utilities";
@@ -10,6 +11,10 @@ import { NavLink } from "react-router-dom";
 import Button from "../button/Button";
 
 function SignUp() {
+  const signupSlice = useSelector((state) => state.signupSlice);
+  const status = useSelector((state) => state.signupSlice.isLoading);
+  const error = useSelector((state) => state.signupSlice.isError);
+
   const formikData = useFormik({
     initialValues: { id: uuidv4(), username: "", password: "", role: "Guest" },
     onSubmit: (values, actions) => {
@@ -27,7 +32,7 @@ function SignUp() {
         <h1>Sign Up</h1>
         <form autoComplete="off" onSubmit={formikData.handleSubmit}>
           <div className="label">
-            <label>UserName</label>
+            <label className="labelText">UserName</label>
             <TextField
               type="text"
               className="text"
@@ -44,7 +49,7 @@ function SignUp() {
             ""
           )}
           <div className="label">
-            <label>Password</label>
+            <label className="labelText">Password</label>
             <TextField
               type="password"
               className="text"
@@ -73,21 +78,33 @@ function SignUp() {
               <option value="Admin">Admin</option>
             </select>
           </div>
+          {!signupSlice.data.token && (
+            <p className="user">{signupSlice.data.message}</p>
+          )}
           <div className="button">
-            <Button
-              value={"Sign Up"}
-              classname={"buttonStyle"}
-              type={"submit"}
-            />
-            <NavLink to="/">
-              <Button
-                value={"Sign In"}
-                classname={"buttonStyle"}
-                type={"submit"}
-              />
-            </NavLink>
+            {status ? (
+              <CircularProgress color="inherit" />
+            ) : (
+              <>
+                <Button
+                  value={"Sign Up"}
+                  classname={"buttonStyle"}
+                  type={"submit"}
+                />
+                <NavLink to="/">
+                  <Button
+                    value={"Sign In"}
+                    classname={"buttonStyle"}
+                    type={"submit"}
+                  />
+                </NavLink>
+              </>
+            )}
           </div>
         </form>
+        {error && (
+          <Snackbar open={true} autoHideDuration={6000} message={error} />
+        )}
       </div>
     </div>
   );

@@ -9,8 +9,8 @@ const initialState = {
   data: {},
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const deleteSlice = createSlice({
+  name: "delete",
   initialState,
   reducers: {
     startLoading(state) {
@@ -29,7 +29,7 @@ const loginSlice = createSlice({
       state.isSuccess = false;
       state.data = { ...action.payload };
     },
-    resetReducer(state) {
+    resetReducers(state) {
       state.isError = false;
       state.isLoading = false;
       state.isSuccess = false;
@@ -38,21 +38,20 @@ const loginSlice = createSlice({
   },
 });
 
-export function login(payload) {
+export function deletePoll(id) {
   return async () => {
-    dispatch(loginSlice.actions.startLoading());
+    dispatch(deleteSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
-        `login?username=${payload.username}&password=${payload.password}`,
-        { payload }
-      );
-      dispatch(loginSlice.actions.loginSuccess(response.data));
+      const response = await axiosInstance.delete(`delete_poll?id=${id}`, {
+        id,
+      });
+      dispatch(deleteSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(loginSlice.actions.hasError(e));
+      dispatch(deleteSlice.actions.hasError(e));
     }
   };
 }
 
-export const { startLoading, hasError, loginSuccess, resetReducer } =
-  loginSlice.actions;
-export default loginSlice.reducer;
+export const { startLoading, hasError, loginSuccess, resetReducers } =
+  deleteSlice.actions;
+export default deleteSlice.reducer;

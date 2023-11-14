@@ -9,8 +9,8 @@ const initialState = {
   data: {},
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const deleteOptionSlice = createSlice({
+  name: "deleteOption",
   initialState,
   reducers: {
     startLoading(state) {
@@ -38,21 +38,21 @@ const loginSlice = createSlice({
   },
 });
 
-export function login(payload) {
+export function deleteOption(id,opt) {
   return async () => {
-    dispatch(loginSlice.actions.startLoading());
+    dispatch(deleteOptionSlice.actions.startLoading());
     try {
-      const response = await axiosInstance.post(
-        `login?username=${payload.username}&password=${payload.password}`,
-        { payload }
+      const response = await axiosInstance.delete(
+        `delete_poll_option?id=${id}&option_text=${opt}`,
+        { id,opt }
       );
-      dispatch(loginSlice.actions.loginSuccess(response.data));
+      dispatch(deleteOptionSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(loginSlice.actions.hasError(e));
+      dispatch(deleteOptionSlice.actions.hasError(e));
     }
   };
 }
 
 export const { startLoading, hasError, loginSuccess, resetReducer } =
-  loginSlice.actions;
-export default loginSlice.reducer;
+  deleteOptionSlice.actions;
+export default deleteOptionSlice.reducer;

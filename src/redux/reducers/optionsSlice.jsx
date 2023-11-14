@@ -9,8 +9,8 @@ const initialState = {
   data: {},
 };
 
-const loginSlice = createSlice({
-  name: "login",
+const optionsSlice = createSlice({
+  name: "addOptions",
   initialState,
   reducers: {
     startLoading(state) {
@@ -38,21 +38,36 @@ const loginSlice = createSlice({
   },
 });
 
-export function login(payload) {
+export function optionsAdd(value, id) {
   return async () => {
-    dispatch(loginSlice.actions.startLoading());
+    dispatch(optionsSlice.actions.startLoading());
     try {
       const response = await axiosInstance.post(
-        `login?username=${payload.username}&password=${payload.password}`,
-        { payload }
+        `add_new_option?id=${id}&option_text=${value.option}`,
+        { value, id }
       );
-      dispatch(loginSlice.actions.loginSuccess(response.data));
+      dispatch(optionsSlice.actions.loginSuccess(response.data));
     } catch (e) {
-      dispatch(loginSlice.actions.hasError(e));
+      dispatch(optionsSlice.actions.hasError(e));
     }
   };
 }
 
+export function updateTitle(value, id) {
+    return async () => {
+      dispatch(optionsSlice.actions.startLoading());
+      try {
+        const response = await axiosInstance.put(
+          `update_poll_title?id=${id}&title=${value.title}`,
+          { value, id }
+        );
+        dispatch(optionsSlice.actions.loginSuccess(response.data));
+      } catch (e) {
+        dispatch(optionsSlice.actions.hasError(e));
+      }
+    };
+  }
+
 export const { startLoading, hasError, loginSuccess, resetReducer } =
-  loginSlice.actions;
-export default loginSlice.reducer;
+  optionsSlice.actions;
+export default optionsSlice.reducer;
