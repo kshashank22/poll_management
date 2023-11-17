@@ -17,6 +17,10 @@ function SignUp() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(signup());
+  }, []);
+
+  useEffect(() => {
     if (signupSlice.isSuccess && !signupSlice.data.message) {
       alert("Successfully Signed Up");
       navigate("/");
@@ -30,7 +34,9 @@ function SignUp() {
       try {
         dispatch(signup(values));
       } catch (error) {}
-      dispatch(resetReducer());
+      if (status) {
+        dispatch(resetReducer());
+      }
     },
     validationSchema: basicSchema,
   });
@@ -91,24 +97,22 @@ function SignUp() {
             <p className="user">{signupSlice.data.message}</p>
           )}
           <div className="button">
-            {status ? (
-              <CircularProgress color="inherit" />
-            ) : (
-              <>
-                <Button
-                  value={"Sign Up"}
-                  classname={"buttonStyle"}
-                  type={"submit"}
-                />
-                <NavLink to="/">
-                  <Button
-                    value={"Sign In"}
-                    classname={"buttonStyle"}
-                    type={"submit"}
-                  />
-                </NavLink>
-              </>
-            )}
+            <div className="buttonContainer">
+              <Button
+                value={
+                  status ? (
+                    <CircularProgress size="1rem" color="inherit" />
+                  ) : (
+                    "Sign Up"
+                  )
+                }
+                classname={"buttonStyle"}
+                type={"submit"}
+              />
+            </div>
+            <NavLink to="/">
+              <a className="link">Already have account? Login</a>
+            </NavLink>
           </div>
         </form>
         {error && (

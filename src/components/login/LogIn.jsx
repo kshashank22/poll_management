@@ -16,6 +16,10 @@ function LogIn() {
   const error = useSelector((state) => state.loginSlice.isError);
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    dispatch(login())
+  },[])
+
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
       const decoded = jwtDecode(loginSlice.data.token);
@@ -89,24 +93,22 @@ function LogIn() {
             <p className="user">{loginSlice.data.data}</p>
           )}
           <div className="button">
-            {status ? (
-              <CircularProgress color="inherit" />
-            ) : (
-              <>
-                <Button
-                  value={"Log In"}
-                  classname={"buttonStyle"}
-                  type={"submit"}
-                />
-                <NavLink to="/signup">
-                  <Button
-                    value={"Sign Up"}
-                    classname={"buttonStyle"}
-                    type={"submit"}
-                  />
-                </NavLink>
-              </>
-            )}
+            <div className="buttonContainer">
+              <Button
+                value={
+                  status ? (
+                    <CircularProgress size="1rem" color="inherit" />
+                  ) : (
+                    "Log In"
+                  )
+                }
+                classname={"buttonStyle"}
+                type={"submit"}
+              />
+            </div>
+            <NavLink to="/signup">
+              <a className="link">Don't have account?Register now</a>
+            </NavLink>
           </div>
         </form>
         {error && (
