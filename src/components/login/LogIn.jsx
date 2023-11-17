@@ -16,6 +16,10 @@ function LogIn() {
   const error = useSelector((state) => state.loginSlice.isError);
   const navigate = useNavigate();
 
+  useEffect(()=>{
+    dispatch(login())
+  },[])
+
   useEffect(() => {
     if (loginSlice.isSuccess && loginSlice.data.token) {
       const decoded = jwtDecode(loginSlice.data.token);
