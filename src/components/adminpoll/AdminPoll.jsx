@@ -94,7 +94,23 @@ function AdminPoll() {
     <div className="adminPollContainer">
       <h1 className="heading">Admin Poll</h1>
       <div className="addIcon">
-        <Button value={`AddPoll + `} classname={"button"} onclick={handleAdd} />
+        <div>
+          <Button
+            value={`AddPoll + `}
+            classname={"button"}
+            onclick={handleAdd}
+          />
+        </div>
+        <div className="button">
+          <NavLink to="/">
+            <Button
+              value={"Log Out"}
+              classname={"buttonStyle"}
+              type={"submit"}
+              onclick={handleLogout}
+            />
+          </NavLink>
+        </div>
       </div>
       {addNewPoll ? (
         <AddPoll
@@ -133,17 +149,6 @@ function AdminPoll() {
                 ))}
             </ul>
           )}
-
-          <div className="button">
-            <NavLink to="/">
-              <Button
-                value={"Log Out"}
-                classname={"buttonStyle"}
-                type={"submit"}
-                onclick={handleLogout}
-              />
-            </NavLink>
-          </div>
         </>
       )}
       {error && (

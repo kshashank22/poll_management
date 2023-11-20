@@ -17,6 +17,7 @@ function UserPoll() {
 
   const [page, setPage] = useState(0);
   const [rowsPerPageOption, setRowsPerPageOption] = useState([5, 10, 15]);
+  const [guestId, setGuestId] = useState(null);
 
   const row = () => {
     if (localStorage.getItem("rowpage")) {
@@ -38,7 +39,8 @@ function UserPoll() {
   useEffect(() => {
     localStorage.setItem("page", page);
     localStorage.setItem("rowpage", rowPerPage);
-  }, [page, rowPerPage]);
+    localStorage.setItem(`${guestId}`, true);
+  }, [page, rowPerPage, guestId]);
 
   const handleLogout = () => {
     localStorage.clear();
@@ -56,6 +58,24 @@ function UserPoll() {
   return (
     <div className="adminPollContainer">
       <h1 className="heading">User Poll</h1>
+      <div className="addIcon">
+        <div className="button">
+          <NavLink to="/">
+            <Button
+              value={
+                status ? (
+                  <CircularProgress size="1rem" color="inherit" />
+                ) : (
+                  "Log Out"
+                )
+              }
+              classname={"buttonStyle"}
+              type={"submit"}
+              onclick={handleLogout}
+            />
+          </NavLink>
+        </div>
+      </div>
       {status ? (
         <div className="loader">
           <Backdrop
@@ -73,7 +93,12 @@ function UserPoll() {
           {listItems
             .slice(page * rowPerPage, page * rowPerPage + rowPerPage)
             .map((each) => (
-              <UserDataLists key={each._id} values={each} />
+              <UserDataLists
+                key={each._id}
+                values={each}
+                guestId={guestId}
+                setGuestId={setGuestId}
+              />
             ))}
         </ul>
       )}
@@ -85,22 +110,6 @@ function UserPoll() {
         />
       )}
 
-      <div className="button">
-        <NavLink to="/">
-          <Button
-            value={
-              status ? (
-                <CircularProgress size="1rem" color="inherit" />
-              ) : (
-                "Log Out"
-              )
-            }
-            classname={"buttonStyle"}
-            type={"submit"}
-            onclick={handleLogout}
-          />
-        </NavLink>
-      </div>
       <div className="paginationContainer">
         <Pagination
           rowsPerPageOptions={rowsPerPageOption}

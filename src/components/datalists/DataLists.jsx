@@ -41,7 +41,7 @@ const DataLists = ({ values, onclick }) => {
         </h1>
         <div className="iconsContainer">
           {values.options.length < 4 && (
-            <NavLink to={`/addoption/${values._id}`} state={values.title}>
+            <NavLink to={`/addoption/${values._id}`} state={values}>
               <AddIcon className="icons" />
             </NavLink>
           )}
